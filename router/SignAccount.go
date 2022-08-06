@@ -5,8 +5,8 @@ import (
 	"xueshen/controller"
 )
 
-func CreateLoginAccount() *gin.Engine {
+func CreateSignAccount() *gin.Engine {
 	r := gin.Default()
-	r.POST("/signup", controller.CreateLoginAccount)
+	r.POST("/signup", controller.CreateSignAccount)
 	return r
 }
