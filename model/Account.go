@@ -13,10 +13,10 @@ func CreateSignAccount(Sign *SignAccount) (err error) {
 	return
 }
 
-func CheckAccount(Sign *SignAccount) (err error) {
-	account := config.DB.First(Sign.Account)
-	password := config.DB.Where("password=?)
-	if account ==
-	err = config.DB.Create(&Sign).Error
-	return
-}
+//func CheckAccount(Sign *SignAccount) (err error) {
+//	account := config.DB.First(Sign.Account)
+//	password := config.DB.Where("password=?)
+//	if account ==
+//	err = config.DB.Create(&Sign).Error
+//	return
+//}

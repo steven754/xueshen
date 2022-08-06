@@ -21,13 +21,13 @@ func main() {
 			fmt.Println("文件关闭错误", err)
 		}
 	}(f)
-	err := config.DB.AutoMigrate(&model.LoginAccount{})
+	err := config.DB.AutoMigrate(&model.SignAccount{})
 	if err != nil {
 		fmt.Println("自动建表错误", err)
 		return
 	}
 	// 注册路由
-	r = router.CreateLoginAccount()
+	r = router.CreateSignAccount()
 	//r.run
 	err = r.Run(config.Url)
 	if err != nil {
