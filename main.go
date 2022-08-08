@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"xueshen/config"
+	"xueshen/middle"
 	"xueshen/model"
 	"xueshen/router"
 )
@@ -13,6 +14,7 @@ import (
 func main() {
 	config.Init()
 	r := gin.Default()
+	r.Use(middle.Auth())
 	f, _ := os.Create("gin.log")
 	gin.DefaultWriter = io.MultiWriter(f)
 	defer func(f *os.File) {

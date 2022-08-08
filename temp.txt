@@ -1,0 +1,14 @@
+db.Migrator().CreateTable(&User{})
+db.Migrator().CreateTable(&Address{})
+db.Migrator().CreateTable(&GoodsType{})
+db.Migrator().CreateTable(&GoodsSKU{})
+db.Migrator().CreateTable(&IndexTypeGoodsBanner{})
+db.Migrator().CreateTable(&Goods{})
+db.Migrator().CreateTable(&GoodsImage{})
+
+导入数据
+
+3
+商城首页
+INSERT INTO `index_type_goods_banners`(goods_type_id,goods_sk_uid,display_type,index_id) VALUES (1,1,1,0),(1,3,1,1),(1,5,1,2),(1,4,1,3),(1,2,0,0),(1,4,0,1),(2,6,
+1,0),(2,7,1,1),(2,8,1,2),(2,9,1,3),(2,9,0,0),(2,8,0,1),(3,10,1,0),(3,12,1,2),(3,13,1,3),(3,15,0,0),(3,17,1,1),(4,14,1,0),(4,16,1,1),(4,14,0,0),(4,16,0,1),(5,18,1,0),(5,19,1,1),(5,20,1,2),(5,20,0,0),(5,19,0,1),(6,22,1,0),(6,23,1,1),(6,24,1,2),(6,25,1,3),(6,23,0,0),(6,25,0,1),(4,27,1,2),(4,28,1,3),(5,29,1,3);

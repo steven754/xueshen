@@ -1,18 +1,19 @@
 package middle
 
 import (
-	"encoding/base64"
-	"github.com/gin-contrib/sessions"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"time"
 )
 
-func Auth(c *gin.Context) (username interface{}, ok bool) {
-	//获取cookie
-	value, _ := c.Cookie("username")
-	//解码
-	store, _ := base64.StdEncoding.DecodeString(value)
-	//session验证
-	session := sessions.Default(c)
-	username = session.Get("username")
-	return username, username == string(store)
+func Auth() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		t := time.Now()
+		fmt.Println("中间件开始执行了")
+		// 设置变量到Context的key中，可以通过Get()取 c.Set("request", "中间件")
+		status := c.Writer.Status()
+		fmt.Println("中间件执行完毕", status)
+		t2 := time.Since(t)
+		fmt.Println("time:", t2)
+	}
 }
