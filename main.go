@@ -30,7 +30,7 @@ func main() {
 	}
 	// 注册路由
 	r = router.CreateSignAccount()
-	//r.run
+	r = router.LoginAccount()
 	err = r.Run(config.Url)
 	if err != nil {
 		fmt.Println("启动失败", err)

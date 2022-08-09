@@ -2,6 +2,7 @@ package model
 
 import (
 	"errors"
+	"time"
 	"xueshen/config"
 )
 
@@ -16,6 +17,8 @@ func CreateSignAccount(Sign *SignAccount) (err error) {
 	if err != nil {
 		return err
 	}
+	Sign.CreateTime = time.Now()
+	Sign.UpdateTime = time.Now()
 	err = config.DB.Create(&Sign).Error
 	if err != nil {
 		return err
@@ -29,5 +32,14 @@ func CheckAccountExist(Sign *SignAccount) (err error) {
 		return
 	} else {
 		return errors.New("该账号已注册")
+	}
+}
+
+func CheckPasswordCorrect(Sign *SignAccount) (err error) {
+	result := config.DB.Table("sign_accounts").Where("account=? AND password=?", Sign.Account, Sign.Password)
+	if result.RowsAffected == 0 {
+		return errors.New("密码错误")
+	} else {
+		return
 	}
 }
