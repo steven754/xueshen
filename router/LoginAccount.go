@@ -10,3 +10,9 @@ func LoginAccount() *gin.Engine {
 	r.POST("/login", controller.LoginAccount)
 	return r
 }
+
+func UpdateAccountPassword() *gin.Engine {
+	r := gin.Default()
+	r.POST("/update/accountpwd", controller.UpdateAccountPassword)
+	return r
+}

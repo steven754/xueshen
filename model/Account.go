@@ -12,6 +12,7 @@ type SignAccount struct {
 	Password string `json:"password" gorm:"column:password" binding:"required"`
 }
 
+// 创建账号
 func CreateSignAccount(Sign *SignAccount) (err error) {
 	err = CheckAccountExist(Sign)
 	if err != nil {
@@ -26,6 +27,7 @@ func CreateSignAccount(Sign *SignAccount) (err error) {
 	return
 }
 
+// 检查账号是否存在
 func CheckAccountExist(Sign *SignAccount) (err error) {
 	result := config.DB.Table("sign_accounts").Where("account=?", Sign.Account).First(&Sign)
 	if result.RowsAffected == 0 {
@@ -35,6 +37,7 @@ func CheckAccountExist(Sign *SignAccount) (err error) {
 	}
 }
 
+// 判断密码是否正确
 func CheckPasswordCorrect(Sign *SignAccount) (err error) {
 	result := config.DB.Table("sign_accounts").Where("account=? AND password=?", Sign.Account, Sign.Password)
 	if result.RowsAffected == 0 {
@@ -42,4 +45,18 @@ func CheckPasswordCorrect(Sign *SignAccount) (err error) {
 	} else {
 		return
 	}
+}
+
+// 修改密码
+func UpdateAccountPassword(Sign *SignAccount) (err error) {
+	err = CheckAccountExist(Sign)
+	if err != nil {
+		return err
+	}
+	Sign.UpdateTime = time.Now()
+	err = config.DB.Update("password=?", Sign.Password).Where("account=?", Sign.Account).Error
+	if err != nil {
+		return err
+	}
+	return
 }

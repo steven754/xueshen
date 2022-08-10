@@ -10,9 +10,8 @@ import (
 var DB *gorm.DB
 
 func Init() {
-
 	// 连接数据库
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", User, PassWord, Host, DataBase)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", Getconf()["User"], Getconf()["PassWord"], Getconf()["Host"], Getconf()["DataBase"])
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		fmt.Println("mysql连接失败，请检查")

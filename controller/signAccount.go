@@ -23,12 +23,6 @@ func CreateSignAccount(c *gin.Context) {
 	} else {
 		// 2. 存入数据库
 		err = model.CreateSignAccount(&signaccount)
-		//if strings.Contains(err.Error(), "Error 1062") {
-		//	c.JSON(http.StatusOK, gin.H{
-		//		"code": 1000,
-		//		"msg":  "该账号已注册",
-		//	})
-		//} else
 		if err != nil {
 			c.JSON(http.StatusOK, gin.H{
 				"code":  1000,
