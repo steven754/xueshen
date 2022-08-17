@@ -2,6 +2,7 @@ package model
 
 import (
 	"errors"
+	"fmt"
 	"time"
 	"xueshen/config"
 )
@@ -39,7 +40,8 @@ func CheckAccountExist(Sign *SignAccount) (err error) {
 
 // 判断密码是否正确
 func CheckPasswordCorrect(Sign *SignAccount) (err error) {
-	result := config.DB.Table("sign_accounts").Where("account=? AND password=?", Sign.Account, Sign.Password)
+	result := config.DB.Table("sign_accounts").Where("account=? AND password=?", Sign.Account, Sign.Password).Find(&Sign)
+	fmt.Println(result)
 	if result.RowsAffected == 0 {
 		return errors.New("密码错误")
 	} else {
@@ -49,12 +51,13 @@ func CheckPasswordCorrect(Sign *SignAccount) (err error) {
 
 // 修改密码
 func UpdateAccountPassword(Sign *SignAccount) (err error) {
-	err = CheckAccountExist(Sign)
-	if err != nil {
-		return err
-	}
+	//err = CheckAccountExist(Sign)
+	//if err != nil {
+	//	return err
+	//}
 	Sign.UpdateTime = time.Now()
-	err = config.DB.Update("password=?", Sign.Password).Where("account=?", Sign.Account).Error
+	//config.DB.Model(&Sign).Where("account=?", Sign.Account).Update("password", Sign.Password)
+	err = config.DB.Model(&Sign).Where("account=?", Sign.Account).Update("password", Sign.Password).Error
 	if err != nil {
 		return err
 	}

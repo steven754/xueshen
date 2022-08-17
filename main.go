@@ -29,9 +29,9 @@ func main() {
 		return
 	}
 	// 注册路由
-	r = router.CreateSignAccount()
-	r = router.LoginAccount()
-	fmt.Println(config.Strval(config.Getconf()["Url"]))
+	r = router.CreateSignAccount(r)
+	r = router.LoginAccount(r)
+	r = router.UpdateAccountPassword(r)
 	err = r.Run(config.Strval(config.Getconf()["Url"]))
 	if err != nil {
 		fmt.Println("启动失败", err)

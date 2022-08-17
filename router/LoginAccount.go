@@ -5,14 +5,12 @@ import (
 	"xueshen/controller"
 )
 
-func LoginAccount() *gin.Engine {
-	r := gin.Default()
+func LoginAccount(r *gin.Engine) *gin.Engine {
 	r.POST("/login", controller.LoginAccount)
 	return r
 }
 
-func UpdateAccountPassword() *gin.Engine {
-	r := gin.Default()
+func UpdateAccountPassword(r *gin.Engine) *gin.Engine {
 	r.POST("/update/accountpwd", controller.UpdateAccountPassword)
 	return r
 }

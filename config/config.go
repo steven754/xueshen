@@ -7,7 +7,7 @@ import (
 )
 
 // 切换环境
-var terminal = "win" //win，mac
+var terminal = "mac" //win，mac
 
 // windows电脑
 var (

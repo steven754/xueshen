@@ -1,18 +1,6 @@
-[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
-
-[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
-
-[GIN-debug] POST   /signup                   --> xueshen/controller.CreateSignAccount (3 handlers)
-[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
-
-[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
- - using env:	export GIN_MODE=release
- - using code:	gin.SetMode(gin.ReleaseMode)
-
-[GIN-debug] POST   /login                    --> xueshen/controller.LoginAccount (3 handlers)
+[GIN-debug] POST   /signup                   --> xueshen/controller.CreateSignAccount (4 handlers)
+[GIN-debug] POST   /login                    --> xueshen/controller.LoginAccount (4 handlers)
+[GIN-debug] POST   /update/accountpwd        --> xueshen/controller.UpdateAccountPassword (4 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on localhost:9000
-[GIN] 2022/08/10 - 22:41:36 | 404 |            0s |       127.0.0.1 | POST     "/signup"
