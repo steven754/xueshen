@@ -13,6 +13,17 @@ type SignAccount struct {
 	Password string `json:"password" gorm:"column:password" binding:"required"`
 }
 
+type AccountList struct {
+	Account  string `json:"account"`
+	PageNo   uint   `json:"PageNo" gorm:"default:1"`
+	PageSize uint   `json:"PageSize" gorm:"default:10"`
+	Total    uint   `json:"Total"`
+}
+
+type AccountListRsp struct {
+	AccountList
+}
+
 // 创建账号
 func CreateSignAccount(Sign *SignAccount) (err error) {
 	err = CheckAccountExist(Sign)
@@ -62,4 +73,14 @@ func UpdateAccountPassword(Sign *SignAccount) (err error) {
 		return err
 	}
 	return
+}
+
+func QueryAccountList(AccountList *AccountList) (err error) {
+	//query := &AccountListRsp{}
+	err = config.DB.Model(&AccountList).Where("account=?", AccountList.Account).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

@@ -30,7 +30,7 @@ func CreateSignAccount(c *gin.Context) {
 				"error": err.Error()})
 		} else {
 			c.JSON(http.StatusOK, gin.H{
-				"code": 2000,
+				"code": 200,
 				"msg":  "success",
 				"data": signaccount,
 			})

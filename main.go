@@ -6,8 +6,8 @@ import (
 	"io"
 	"os"
 	"xueshen/config"
+	"xueshen/domain"
 	"xueshen/model"
-	"xueshen/router"
 )
 
 func main() {
@@ -27,9 +27,8 @@ func main() {
 		return
 	}
 	// 注册路由
-	r = router.CreateSignAccount(r)
-	r = router.LoginAccount(r)
-	r = router.UpdateAccountPassword(r)
+	r = domain.SetupRouter()
+
 	err = r.Run(config.Strval(config.Getconf()["Url"]))
 	if err != nil {
 		fmt.Println("启动失败", err)
