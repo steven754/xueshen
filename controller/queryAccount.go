@@ -9,13 +9,16 @@ import (
 
 func QueryAccount(c *gin.Context) {
 	// 1. 从请求中把数据拿出来
-	var accountlist model.AccountList
-	err := c.BindJSON(&accountlist)
+	var querylist model.SignAccount
+	err := c.BindJSON(&querylist)
 	if err != nil {
 		fmt.Println("bindJson错误", err)
 		return
 	}
-	model.QueryAccountList(&accountlist)
+	rsp, err := model.QueryAccountList(&querylist)
+	if err != nil {
+		return
+	}
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"code":  1000,
@@ -25,7 +28,7 @@ func QueryAccount(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"code": 200,
 			"msg":  "success",
-			"data": accountlist,
+			"data": rsp,
 		})
 	}
 }

@@ -10,7 +10,7 @@ import (
 type SignAccount struct {
 	BaseEntity
 	Account  string `json:"account" gorm:"column:account" binding:"required"`
-	Password string `json:"password" gorm:"column:password" binding:"required"`
+	Password string `json:"password" gorm:"column:password"`
 }
 
 type AccountList struct {
@@ -18,6 +18,10 @@ type AccountList struct {
 	PageNo   uint   `json:"PageNo" gorm:"default:1"`
 	PageSize uint   `json:"PageSize" gorm:"default:10"`
 	Total    uint   `json:"Total"`
+}
+
+type QueryAccount struct {
+	Account string `json:"account" gorm:"column:account"`
 }
 
 type AccountListRsp struct {
@@ -41,7 +45,7 @@ func CreateSignAccount(Sign *SignAccount) (err error) {
 
 // 检查账号是否存在
 func CheckAccountExist(Sign *SignAccount) (err error) {
-	result := config.DB.Table("sign_accounts").Where("account=?", Sign.Account).First(&Sign)
+	result := config.DB.Model(&Sign).Where("account=?", Sign.Account).First(&Sign)
 	if result.RowsAffected == 0 {
 		return
 	} else {
@@ -51,7 +55,7 @@ func CheckAccountExist(Sign *SignAccount) (err error) {
 
 // 判断密码是否正确
 func CheckPasswordCorrect(Sign *SignAccount) (err error) {
-	result := config.DB.Table("sign_accounts").Where("account=? AND password=?", Sign.Account, Sign.Password).Find(&Sign)
+	result := config.DB.Model(&Sign).Where("account=? AND password=?", Sign.Account, Sign.Password).Find(&Sign)
 	fmt.Println(result)
 	if result.RowsAffected == 0 {
 		return errors.New("密码错误")
@@ -75,12 +79,12 @@ func UpdateAccountPassword(Sign *SignAccount) (err error) {
 	return
 }
 
-func QueryAccountList(AccountList *AccountList) (err error) {
-	//query := &AccountListRsp{}
-	err = config.DB.Model(&AccountList).Where("account=?", AccountList.Account).Error
+func QueryAccountList(queryAccount *SignAccount) (rsp *[]string, err error) {
+	result := make([]string, 10)
+	err = config.DB.Model(&queryAccount).Where("account LIKE ?", "%"+queryAccount.Account+"%").Find(&result).Error
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return &result, nil
 }

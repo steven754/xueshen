@@ -9,6 +9,8 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(middle.Auth())
+	r.Use(middle.A())
+	r.Use(middle.B())
 	r.POST("/login", controller.LoginAccount)
 	r.POST("/update/pswd", controller.UpdateAccountPassword)
 	r.POST("/sign", controller.CreateSignAccount)
